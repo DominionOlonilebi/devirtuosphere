@@ -29,7 +29,7 @@ interface UserType {
 const ViewerDashboard = () => {
 
   const router = useRouter();
-  // Assuming Users is an array of UserType
+  
   const [userList, setUserList] = useState<UserType[]>(Users as UserType[]); // Type assertion
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 

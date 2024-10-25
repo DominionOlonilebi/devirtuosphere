@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 // Define the User interface
 interface UserType {
-  id: number; // Ensure this matches your local storage data
+  id: number;
   name: string;
   role: string;
   mail: string;
