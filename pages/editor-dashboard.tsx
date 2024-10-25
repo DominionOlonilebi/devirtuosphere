@@ -14,12 +14,23 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Users } from "@/components/user-data";
 
+// Define the User interface
+interface UserType {
+  id: number; 
+  name: string;
+  role: string;
+  mail: string;
+  gender: string;
+  position: string;
+}
+
 const EditorDashboard = () => {
+
   const router = useRouter();
-  const [userList, setUserList] = useState(Users); // Manage user state
+  // Assuming Users is an array of UserType
+  const [userList, setUserList] = useState<UserType[]>(Users as UserType[]); // Type assertion
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
-  // Check if the user role is set and redirect if not
   useEffect(() => {
     const userRole = localStorage.getItem("userRole");
     if (userRole !== "editor") {
@@ -27,27 +38,27 @@ const EditorDashboard = () => {
     }
   }, [router]);
 
-  //handle logout and redirect to login page
+  // handles logout and redirect to login page
   const handleLogout = () => {
-    localStorage.removeItem("userRole"); // Clear the user role from local storage
-    router.push("/"); // Redirect to login page
+    localStorage.removeItem("userRole");
+    router.push("/");
   };
 
-  //sidebar menu collapse
+  // sidebar menu collapse
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  // EditDashboard.tsx
-  const handleEdit = (user) => {
+  // Function to handle editing a user
+  const handleEdit = (user: UserType) => {
     router.push({
       pathname: `/edit-user/${user.id}`,
-      query: { updateUser: true }, // Add a custom query parameter
+      query: { updateUser: true },
     });
   };
 
-  //function to delete user data
-  const handleDelete = (userToDelete) => {
+  // Function to delete user data
+  const handleDelete = (userToDelete: UserType) => {
     const confirmDelete = window.confirm(
       `Are you sure you want to delete ${userToDelete.name}?`
     );
@@ -59,6 +70,7 @@ const EditorDashboard = () => {
       console.log("Deleted user:", userToDelete);
     }
   };
+
 
   return (
     <div className="flex h-screen bg-gray-100">

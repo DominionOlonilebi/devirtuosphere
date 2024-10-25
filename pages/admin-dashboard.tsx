@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"; 
 import { useRouter } from "next/router";
 import {
   Home,
@@ -12,11 +12,22 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Users } from "@/components/user-data";
+import { Users } from "@/components/user-data"; // Ensure this is correctly exported
+
+// Define the User interface
+interface UserType {
+  id: number; 
+  name: string;
+  role: string;
+  mail: string;
+  gender: string;
+  position: string;
+}
 
 const AdminDashboard = () => {
   const router = useRouter();
-  const [userList, setUserList] = useState(Users); // Manage user state
+  // Assuming Users is an array of UserType
+  const [userList, setUserList] = useState<UserType[]>(Users as UserType[]); // Type assertion
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -31,21 +42,22 @@ const AdminDashboard = () => {
     localStorage.removeItem("userRole");
     router.push("/");
   };
-  //sidebar menu collapse
+
+  // sidebar menu collapse
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  // AdminDashboard.tsx
-  const handleEdit = (user) => {
+  // Function to handle editing a user
+  const handleEdit = (user: UserType) => {
     router.push({
       pathname: `/edit-user/${user.id}`,
-      query: { updateUser: true }, // Add a custom query parameter
+      query: { updateUser: true },
     });
   };
 
-  //function to delete user data
-  const handleDelete = (userToDelete) => {
+  // Function to delete user data
+  const handleDelete = (userToDelete: UserType) => {
     const confirmDelete = window.confirm(
       `Are you sure you want to delete ${userToDelete.name}?`
     );
@@ -163,6 +175,7 @@ const AdminDashboard = () => {
             </p>
           </div>
         </div>
+
 
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 bg-white">
