@@ -9,7 +9,6 @@ import {
   Trash,
   Activity,
   Edit,
-  ArrowLeft,
   ArrowRight,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
